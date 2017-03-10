@@ -22,7 +22,7 @@ const chat = (server) => {
 
             socket.emit('setId', {
                 id: socket.id
-            })
+            });
         });
 
         socket.on('disconnect', () => {
@@ -40,6 +40,6 @@ const chat = (server) => {
             });
         });
     });
-}
+};
 
 module.exports = chat;

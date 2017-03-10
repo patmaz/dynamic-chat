@@ -8,7 +8,7 @@ import MessageList from './MessageList.jsx';
 import UsersList from './UsersList.jsx';
 import UserForm from './UserForm.jsx';
 
-const socket = io.connect('http://localhost:3000');
+const socket = io.connect('http://localhost:3030');
 
 class App extends Component {
     constructor(props) {

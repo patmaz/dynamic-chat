@@ -7,7 +7,7 @@ const chat = require('./modules/chat');
 const app = express();
 const server = http.createServer(app);
 
-const port = 3000;
+const port = 3030;
 
 //errors
 process.on('uncaughtException', function(err) {
@@ -15,9 +15,6 @@ process.on('uncaughtException', function(err) {
 });
 
 //middle
-// app.use(function (req, res, next) {
-//     res.status(404).send('404!');
-// });
 app.use(express.static('public'));
 
 //MAIN
