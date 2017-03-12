@@ -26,7 +26,7 @@ const secureChat = (app) => {
     passport.use(strategy);
     app.use(cookieSession({
         name: 'sessionChat',
-        keys: ['jncjdsc'],
+        keys: [config.session.secret],
         maxAge: 24 * 60 * 60 * 1000
     }))
     app.use(passport.initialize());
