@@ -1,0 +1,11 @@
+.History {
+    max-height: 100px;
+    overflow: auto;
+    border-top: 1px solid #ccc;
+    table-layout: auto;
+    width: 100%;
+
+    table {
+        font-size: 10px;
+    }
+}

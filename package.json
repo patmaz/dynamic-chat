@@ -5,15 +5,23 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "webpack:dev": "webpack-dev-server --hot --inline & nodemon index.js",
+    "webpack:dev": "webpack-dev-server --hot --inline & NODE_ENV=development nodemon index.js",
     "webpack:prod": "NODE_ENV=production webpack",
     "start": "nodemon index.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.17.1",
+    "cookie-parser": "^1.4.3",
+    "cookie-session": "^2.0.0-beta.1",
     "express": "^4.15.2",
-    "socket.io": "^1.7.3"
+    "express-session": "^1.15.1",
+    "firebase": "^3.7.1",
+    "passport": "^0.3.2",
+    "passport-auth0": "^0.6.0",
+    "socket.io": "^1.7.3",
+    "uuid": "^3.0.1"
   },
   "devDependencies": {
     "babel-core": "^6.23.1",

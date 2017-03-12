@@ -7,6 +7,7 @@ import MessageForm from './MessageForm.jsx';
 import MessageList from './MessageList.jsx';
 import UsersList from './UsersList.jsx';
 import UserForm from './UserForm.jsx';
+import History from './History.jsx';
 
 const socket = io.connect();
 
@@ -18,19 +19,30 @@ class App extends Component {
             users: [],
             messages: [],
             text: '',
-            name: '',
-            myId: ''
+            name: document.cookie.match(new RegExp('myid' + '=([^;]+)'))[0].substring(5) || 'none',
+            myId: '',
+            history: []
         }
     }
 
     componentDidMount() {
         socket.on('message', message => this.messageRecieve(message));
         socket.on('update', ({users}) => this.chatUpdate(users));
-        socket.on('setId', ({id}) => this.setId(id));
+        socket.on('setId', (ids) => this.setId(ids));
+        socket.on('history', ({history}) => this.getHistory(history));
+        socket.emit('join', { name: this.state.name });
     }
 
-    setId = (myId) => {
-        this.setState({myId});
+    setId = (ids) => {
+        this.setState({myId: ids.id});
+    }
+
+    getHistory = (history) => {
+        for (let property in history) {
+            if (history.hasOwnProperty(property)) {
+                this.setState({history: [history[property], ...this.state.history]});
+            }
+        }
     }
 
     messageRecieve = (message) => {
@@ -48,16 +60,7 @@ class App extends Component {
         socket.emit('message', message);
     }
 
-    handleUserSubmit = (name) => {
-        this.setState({name});
-        socket.emit('join', name);
-    }
-
     render() {
-        return this.state.name !== '' ? this.renderLayout() : this.renderUserForm();
-    }
-
-    renderLayout() {
         return (
             <div className={styles.App}>
                 <div className={styles.AppHeader}>
@@ -77,6 +80,7 @@ class App extends Component {
                         <MessageList
                             messages={this.state.messages}
                         />
+                        <History history={this.state.history} />
                         <MessageForm
                             onMessageSubmit={message => this.handleMessageSubmit(message)}
                             name={this.state.name}
@@ -85,10 +89,6 @@ class App extends Component {
                 </div>
             </div>
         );
-    }
-
-    renderUserForm() {
-        return (<UserForm onUserSubmit={name => this.handleUserSubmit(name)} />)
     }
 }
 

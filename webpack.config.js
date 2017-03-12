@@ -6,17 +6,22 @@ var OptimizeJsPlugin = require('optimize-js-plugin');
 var env = process.env.NODE_ENV || 'development';
 console.log('NODE_ENV:', env);
 
-entry = [
+var entry = [
       'react-hot-loader/patch',
       'webpack-dev-server/client?http://localhost:8080',
       'webpack/hot/only-dev-server',
       './client/index.js'
-   ]
+   ];
+
+var devServer = {
+      contentBase: "./public",
+      hot: true
+   };
 
 var plugins = [
    new HtmlWebpackPlugin({
-      template: 'client/index.html',
-      filename: 'index.html',
+      template: 'client/chat.html',
+      filename: 'chat.html',
       inject: 'body',
    })
 ];
@@ -31,6 +36,7 @@ if (env === 'production') {
       })
    );
    entry = './client/index.js';
+   devServer = {};
    process.env.BABEL_ENV = 'production'
 }
 
@@ -41,6 +47,8 @@ var config = {
       filename: './bundle.js',
       path: __dirname + '/public',
    },
+
+   devServer: devServer,
 
    module: {
       loaders: [
