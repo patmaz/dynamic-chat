@@ -1,45 +1,18 @@
 "use strict";
 const socketIo = require('socket.io');
-const firebase = require('firebase');
 const uuidV1 = require('uuid/v1');
 
 const UserService = require('../services/UsersService');
 const userService = new UserService();
-const config = require('../config');
 
-let firebaseConfig = {
-    apiKey: config.firebase.apiKey,
-    authDomain: config.firebase.authDomain,
-    databaseURL: config.firebase.databaseURL,
-    storageBucket: config.firebase.storageBucket,
-    messagingSenderId: config.firebase.messagingSenderId
-  };
-firebase.initializeApp(firebaseConfig);
+import {getMessages, postMessage} from './firebaseSetup';
 
-const writeMsg = (name, text) => {
-    firebase.database()
-            .ref('msgs/' + Date.now())
-            .set({
-                username: name,
-                text: text,
-                date: (new Date()).toString(),
-                id: uuidV1()
-            });
-}
-
-const readData = (cb) => {
-    firebase.database()
-                .ref('msgs/')
-                .once('value')
-                .then(function(snapshot) {
-                    cb(snapshot.val());
-                });
-}
+// @WARNING: PSEUDOCODE
 
 const chat = (server) => {
     const io = socketIo(server);
 
-    io.on('connection', function(socket){
+    const thatLogic = (socket) => {
 
         socket.on('join', ({name}) => {
             userService.addUser({
@@ -55,7 +28,7 @@ const chat = (server) => {
                 id: socket.id
             });
 
-            readData((history) => {
+            getMessages((history) => {
                 socket.emit('history', {
                     history
                 });
@@ -75,9 +48,21 @@ const chat = (server) => {
                 text: message.text,
                 from: name
             });
-            writeMsg(name, message.text);
+            postMessage(name, message.text);
         });
-    });
+    }
+
+    // custom room
+    const createRoom = (chatRoomId) => {
+        var news = io
+            .of(`/${chatRoomId}`)
+            .on('connection', thatLogic);
+    }
+
+    // main room
+    io.on('connection', thatLogic);
+
+    return {createRoom};
 };
 
 module.exports = chat;
