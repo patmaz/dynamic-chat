@@ -18,20 +18,14 @@ process.on('uncaughtException', (err) => {
 //middle
 app.use(express.static('public'));
 
-//ROUTES
-app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/public/start.html');
-});
-
 secureChat(app);
 chat(server);
+
+app.use((req, res, next) => {
+  res.status(404).send("upss, 404!");
+});
 
 //listen
 server.listen(port, () => {
   console.log(new Date() + ' >>>>>>>>> listening on: ' + port);
 });
-
-//404
-app.use((req, res, next) => {
-  res.status(404).send("upss, 404!");
-})

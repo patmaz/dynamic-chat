@@ -1,40 +1,11 @@
 "use strict";
 const socketIo = require('socket.io');
-const firebase = require('firebase');
-const uuidV1 = require('uuid/v1');
 
 const UserService = require('../services/UsersService');
 const userService = new UserService();
-const config = require('../config');
 
-let firebaseConfig = {
-    apiKey: config.firebase.apiKey,
-    authDomain: config.firebase.authDomain,
-    databaseURL: config.firebase.databaseURL,
-    storageBucket: config.firebase.storageBucket,
-    messagingSenderId: config.firebase.messagingSenderId
-  };
-firebase.initializeApp(firebaseConfig);
-
-const writeMsg = (name, text) => {
-    firebase.database()
-            .ref('msgs/' + Date.now())
-            .set({
-                username: name,
-                text: text,
-                date: (new Date()).toString(),
-                id: uuidV1()
-            });
-}
-
-const readData = (cb) => {
-    firebase.database()
-                .ref('msgs/')
-                .once('value')
-                .then(function(snapshot) {
-                    cb(snapshot.val());
-                });
-}
+const firebase = require('./firebaseApi');
+firebase.init();
 
 const chat = (server) => {
     const io = socketIo(server);
@@ -55,7 +26,7 @@ const chat = (server) => {
                 id: socket.id
             });
 
-            readData((history) => {
+            firebase.getHistory((history) => {
                 socket.emit('history', {
                     history
                 });
@@ -75,7 +46,7 @@ const chat = (server) => {
                 text: message.text,
                 from: name
             });
-            writeMsg(name, message.text);
+            firebase.saveMessage(name, message.text);
         });
     });
 };

@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
 
-import App from './App.jsx';
+import App from './chat/App.jsx';
 
 const render = (Component) => {
   ReactDOM.render(
