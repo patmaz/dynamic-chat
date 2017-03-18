@@ -27,5 +27,5 @@ app.use((req, res, next) => {
 
 //listen
 server.listen(port, () => {
-  console.log(new Date() + ' >>>>>>>>> listening on: ' + port);
+  console.log(new Date() + ' >>>>>>>>> ' + port);
 });

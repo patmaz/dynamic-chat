@@ -20,11 +20,13 @@
     "firebase": "^3.7.1",
     "passport": "^0.3.2",
     "passport-auth0": "^0.6.0",
-    "socket.io": "^1.7.3",
-    "uuid": "^3.0.1",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
-    "socket.io-client": "^1.7.3"
+    "react-redux": "^5.0.3",
+    "redux": "^3.6.0",
+    "socket.io": "^1.7.3",
+    "socket.io-client": "^1.7.3",
+    "uuid": "^3.0.1"
   },
   "devDependencies": {
     "babel-core": "^6.23.1",
@@ -38,6 +40,7 @@
     "node-sass": "^4.5.0",
     "optimize-js-plugin": "0.0.4",
     "react-hot-loader": "^3.0.0-beta.6",
+    "redux-logger": "^2.8.2",
     "sass-loader": "^6.0.3",
     "style-loader": "^0.13.2",
     "uglifyjs-webpack-plugin": "^0.3.0",

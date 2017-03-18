@@ -35,11 +35,12 @@ const secureChat = (app) => {
                 res.redirect('/noaccess');
             }
         } else {
-            res.send('not autheticated');
+            res.redirect('/chatlogin');
         }
     }
 
     app.get('/', (req, res) => {
+        console.log('root', req.user);
         if (!req.user) {
             res.redirect('/chatlogin');
         } else {
