@@ -7,8 +7,17 @@ class UsersService {
         return this.users;
     }
 
+    getAllUsersInRoom(room) {
+        return this.users.filter(user => user.room === room);
+    }
+
     getUserById(userId) {
         return this.users.find(user => user.id === userId);
+    }
+
+    getUserRoom(userId) {
+        const user = this.users.find(user => user.id === userId);
+        return user.room;
     }
 
     addUser(user) {

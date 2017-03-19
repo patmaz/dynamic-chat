@@ -40,28 +40,27 @@ const secureChat = (app) => {
     }
 
     app.get('/', (req, res) => {
-        console.log('root', req.user);
         if (!req.user) {
             res.redirect('/chatlogin');
         } else {
-            res.redirect('/chat');
+            res.redirect('/chatchoice');
         }
     });
 
     app.get('/chatlogin',
-      passport.authenticate('auth0', { failureRedirect: '/failed' }),
-      (req, res) => {
-        if (!req.user) {
-            console.error('no user');
-        } else {
-            req.user._json.app_metadata = req.user._json.app_metadata || {};
-            if (req.user._json.app_metadata.role === 'important') {
-                res.redirect('/chat');
+        passport.authenticate('auth0', { failureRedirect: '/failed' }),
+        (req, res) => {
+            if (!req.user) {
+                console.error('no user');
             } else {
-                res.redirect('/noaccess');
+                req.user._json.app_metadata = req.user._json.app_metadata || {};
+                if (req.user._json.app_metadata.role === 'important') {
+                    res.redirect('/chatchoice');
+                } else {
+                    res.redirect('/noaccess');
+                }
             }
         }
-      }
     );
 
     app.get('/failed', (req, res) => {
@@ -72,10 +71,19 @@ const secureChat = (app) => {
         res.send('you logged in, but don\'t have permission');
     });
 
+    app.get('/chatchoice', authenticationMiddleware,  (req, res) => {
+        res.sendFile(path.join(__dirname, '../public/', 'chatchoice.html'));
+    });
+
     app.get('/chat', authenticationMiddleware,  (req, res) => {
         const idCookie = 'myid=' + req.user.nickname;
         res.setHeader('Set-Cookie', idCookie);
         res.sendFile(path.join(__dirname, '../public/', 'chat.html'));
+    });
+
+    app.get('/logout', (req, res) => {
+        req.logout();
+        res.redirect('/');
     });
 }
 

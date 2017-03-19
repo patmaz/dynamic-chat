@@ -1,0 +1,19 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Chat</title>
+</head>
+<body>
+    <script>
+        document.getElementById('chat-room').addEventListener('submit', function(e){
+            e.preventDefault();
+            console.log(e);
+        });
+    </script>
+    <p><a href="/chat">public chat</a></p>
+    <p><form action="#" id="chat-room">
+        <input type="text">
+        <input type="submit">
+    </form></p>
+</body>
+</html>

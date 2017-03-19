@@ -1,0 +1,21 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Chat</title>
+</head>
+<body>
+    <p><a href="/chat">public chat</a></p>
+    <p><form action="#" id="chat-room">
+        <input type="text">
+        <input type="submit" value="GO">
+    </form></p>
+    <script>
+        document.getElementById('chat-room').addEventListener('submit', function(e){
+            e.preventDefault();
+            var room = e.target[0].value.toLowerCase().trim().replace(/ /g,'');
+            var roomUrl = window.location.origin + '/chat?room=' + room;
+            window.location = roomUrl;
+        });
+    </script>
+</body>
+</html>

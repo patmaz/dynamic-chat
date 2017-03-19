@@ -15,12 +15,14 @@ process.on('uncaughtException', (err) => {
     console.error('Uncaught error', err);
 });
 
-//middle
+//static
 app.use(express.static('public'));
 
+//modules
 secureChat(app);
 chat(server);
 
+//404
 app.use((req, res, next) => {
   res.status(404).send("upss, 404!");
 });
