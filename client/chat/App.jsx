@@ -11,7 +11,7 @@ import MessageList from './MessageList.jsx';
 import UsersList from './UsersList.jsx';
 import History from './History.jsx';
 
-const socket = io.connect('http://localhost:3030');
+const socket = io.connect();
 
 const mapStateToProps = state => ({
     history: state.mainState.history,
