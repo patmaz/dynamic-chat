@@ -60,11 +60,11 @@ class App extends Component {
         return (
             <div className={styles.App}>
                 <div className={styles.AppHeader}>
-                    <div className={styles.AppTitle}>
+                    <div className={styles.AppLogout}>
                         <a href="/logout">logout</a>
                     </div>
                     <div className={styles.AppRoom}>
-                        CHAT ROOM
+                        dynamic roomz chat
                     </div>
                 </div>
                 <div className={styles.AppBody}>
@@ -75,6 +75,7 @@ class App extends Component {
                     <div className={styles.MessageWrapper}>
                         <MessageList
                             messages={this.props.messages}
+                            name={this.props.myIds.name}
                         />
                         <History history={this.props.history} />
                         <MessageForm

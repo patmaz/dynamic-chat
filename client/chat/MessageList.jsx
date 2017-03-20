@@ -3,8 +3,8 @@ import React, {Component} from 'react';
 import styles from './MessageList.scss';
 
 const Message = (props) => (
-    <div className={styles.Message}>
-        <strong>{props.from} :</strong>
+    <div className={props.myMessage ? styles.MyMessage : styles.Message}>
+        <strong>{props.from} :: </strong>
         <span>{props.text}</span>
     </div>
 );
@@ -18,6 +18,7 @@ const MessageList = (props) => (
                     key={i}
                     from={message.from}
                     text={message.text}
+                    myMessage={props.name === message.from}
                 />
             );
         })
