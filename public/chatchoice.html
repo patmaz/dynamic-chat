@@ -2,13 +2,53 @@
 <head>
     <meta charset="UTF-8">
     <title>Chat</title>
+<style>
+    @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600');
+    body {
+        background-color: #4a4d50;
+        color: #F1F1F2;
+        font-family: 'Source Sans Pro', sans-serif;
+        font-weight: 200;
+        font-size: 30px;
+        width: 100%;
+    }
+
+    a {
+        color: #F1F1F2;
+        text-decoration: none;
+        display: inline-block;
+        border-bottom: 1px solid #99BF44;
+    }
+    input {
+        background-color: #4a4d50;
+        color: #F1F1F2;
+        font-weight: 200;
+        font-size: 30px;
+        border: none;
+        border-bottom: 1px solid #99BF44;
+    }
+    input:focus {
+        outline: none;
+    }
+    input[type="text"] {
+        width: 100%;
+        text-align: center;
+    }
+    .choose-box{
+        width: 50%;
+        min-width: 500px;
+        text-align: center;
+        margin: 0 auto;
+    }
+</style>
 </head>
 <body>
-    <p><a href="/chat">public chat</a></p>
-    <p><form action="#" id="chat-room">
-        <input type="text">
-        <input type="submit" value="GO">
-    </form></p>
+    <div class="choose-box">
+        <p>You can use a <a href="/chat">public chat</a> or create your own with a custom name:</p>
+        <form action="#" id="chat-room">
+            <input type="text" placeholder="type chat name and press ENTER">
+        </form>
+    </div>
     <script>
         document.getElementById('chat-room').addEventListener('submit', function(e){
             e.preventDefault();

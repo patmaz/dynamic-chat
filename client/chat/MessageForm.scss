@@ -7,5 +7,14 @@
     flex: 1;
     padding: 20px;
     border: 0;
-    border-top: 1px solid #ccc;
+    border-top: 1px solid #676b6f;
+    background-color: #4a4d50;
+    color: #F1F1F2;
+    font-family: 'Source Code Pro', monospace;
+    font-weight: 200;
+    font-size: 15px;
+}
+
+.MessageInput:focus {
+    outline: none;
 }

@@ -4,22 +4,38 @@
     flex-direction: column;
     justify-content: flex-start;
     width: 100%;
+    overflow: auto;
 }
 
 .MyMessage {
-    background-color: #dbe7f1;
-    width: 50%;
-    margin: 5px 5px 5px 45%;
+    background-color: #636363;
+    width: 80%;
+    margin: 5px 5px 5px 15%;
     padding: 5px;
-    border: 1px solid #eee;
+    border: 1px solid #DFC761;
     border-radius: 5px;
+    position: relative;
+    .Time {
+        color: #DFC761;
+    }
 }
 
 .Message {
-    background-color: transparent;
-    width: 50%;
+    background-color: #636363;
+    width: 80%;
     margin: 5px;
     padding: 5px;
-    border: 1px solid #eee;
+    border: 1px solid #5A95A4;
     border-radius: 5px;
+    position: relative;
+    .Time {
+        color:#5A95A4;
+    }
+}
+
+.Time {
+    position: absolute;
+    right: 3px;
+    bottom: 3px;
+    font-size: 9px;
 }
