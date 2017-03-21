@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600');
+@import url('https://fonts.googleapis.com/css?family=Source+Code+Pro:300,400');
 $primary-color: #141823;
 
 html {
@@ -8,11 +8,17 @@ html {
 body {
     min-height: 100%;
     width: 100%;
-    font-family: 'Source Sans Pro', sans-serif;
-    font-size: 15px;
-    color: $primary-color;
-    z-index: 1;
     margin: 0;
+    background-color: #4a4d50;
+    color: #F1F1F2;
+    font-family: 'Source Code Pro', monospace;
+    font-weight: 200;
+    font-size: 15px;
+    width: 100%;
+}
+
+a {
+    color: #F1F1F2;
 }
 
 .App {
@@ -26,13 +32,12 @@ body {
     display: flex;
     flex-direction: row;
     align-items: center;
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid #676b6f;
 }
 
 .AppLogout {
     display: flex;
     width: 25%;
-    border-right: 1px solid #ccc;
     justify-content: center;
     box-sizing: border-box;
     padding: 5px 20px;
@@ -40,7 +45,7 @@ body {
 
 .AppRoom {
     display: flex;
-    width: 75%;
+    width: 85%;
     justify-content: center;
     box-sizing: border-box;
     padding: 5px 20px;
@@ -56,6 +61,6 @@ body {
 .MessageWrapper {
     display: flex;
     flex-direction: column;
-    width: 75%;
+    width: 85%;
     flex: 1;
 }
