@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 
 import styles from './MessageList.scss';
 
@@ -12,18 +12,16 @@ const Message = (props) => (
 const MessageList = (props) => (
     <div className={styles.MessageList}>
     {
-        props.messages.map((message, i) => {
-            return (
-                <Message
-                    key={i}
-                    from={message.from}
-                    text={message.text}
-                    myMessage={props.name === message.from}
-                />
-            );
-        })
+        props.messages.map((message, i) =>
+          <Message
+            key={i}
+            from={message.from}
+            text={message.text}
+            myMessage={props.name === message.from}
+          />
+        )
     }
   </div>
-)
+);
 
 export default MessageList;

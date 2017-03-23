@@ -1,31 +1,15 @@
 import React, { Component } from 'react';
-import {connect} from 'react-redux';
-import {getHistory, getMessage, getUsers, setIds} from './redux/actions.js';
 
 import io from 'socket.io-client';
 
 import styles from './App.scss';
 
-import MessageForm from './MessageForm.jsx';
-import MessageList from './MessageList.jsx';
-import UsersList from './UsersList.jsx';
-import History from './History.jsx';
+import MessageForm from '../MessageForm/MessageForm.jsx';
+import MessageList from '../MessageList/MessageList.jsx';
+import UsersList from '../UsersList/UsersList.jsx';
+import History from '../History/History.jsx';
 
 const socket = io.connect('http://localhost:3030');
-
-const mapStateToProps = state => ({
-    history: state.mainState.history,
-    messages: state.mainState.messages,
-    users: state.mainState.users,
-    myIds: state.mainState.myIds,
-});
-
-const mapDispatchToProps = dispatch => ({
-    getHistory: (history) => dispatch(getHistory(history)),
-    getMessage: (message) => dispatch(getMessage(message)),
-    getUsers: (users) => dispatch(getUsers(users)),
-    setIds: (id, name) => dispatch(setIds(id, name))
-});
 
 class App extends Component {
     constructor(props) {
@@ -33,7 +17,7 @@ class App extends Component {
 
         this.state = {
             name: document.cookie.match(new RegExp('myid' + '=([^;]+)'))[0].substring(5) || 'none',
-        }
+        };
 
         this.room = window.location.href.split('?')[1] ? window.location.href.split('?')[1].split('=')[1] : 'room0';
     }
@@ -46,15 +30,18 @@ class App extends Component {
         socket.emit('join', { name: this.state.name, room: this.room });
     }
 
+    getUserNameFromCookie = () =>
+        document.cookie.match(new RegExp('myid' + '=([^;]+)'))[0].substring(5) || 'none';
+
     setId = (ids) => {
-        const name = document.cookie.match(new RegExp('myid' + '=([^;]+)'))[0].substring(5) || 'none';
+        const name = this.getUserNameFromCookie();
         this.props.setIds(ids.id, name);
-    }
+    };
 
     handleMessageSubmit = (message) => {
         this.props.getMessage(message);
         socket.emit('message', {message});
-    }
+    };
 
     render() {
         return (
@@ -89,4 +76,4 @@ class App extends Component {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default App;
