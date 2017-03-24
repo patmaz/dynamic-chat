@@ -1,14 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { createStore, combineReducers } from 'redux';
-import createLogger from 'redux-logger';
-import mainReducer from './chat/redux/reducers.js';
-import App from './chat/App.jsx';
-
-const reducer = combineReducers({
-    mainState: mainReducer
-});
+import { createStore } from 'redux';
+import reducer from './reducers/index';
+import App from './containers/AppContainer.jsx';
 
 const store = createStore(reducer);
 

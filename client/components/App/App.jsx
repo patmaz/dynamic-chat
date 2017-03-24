@@ -1,31 +1,16 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
-import {getHistory, getMessage, getUsers, setIds} from './redux/actions.js';
 
 import io from 'socket.io-client';
 
 import styles from './App.scss';
 
-import MessageForm from './MessageForm.jsx';
-import MessageList from './MessageList.jsx';
-import UsersList from './UsersList.jsx';
-import History from './History.jsx';
+import MessageForm from '../MessageForm/MessageForm.jsx';
+import MessageList from '../MessageList/MessageList.jsx';
+import UsersList from '../UsersList/UsersList.jsx';
+import History from '../History/History.jsx';
 
 const socket = io.connect();
-
-const mapStateToProps = state => ({
-    history: state.mainState.history,
-    messages: state.mainState.messages,
-    users: state.mainState.users,
-    myIds: state.mainState.myIds,
-});
-
-const mapDispatchToProps = dispatch => ({
-    getHistory: (history) => dispatch(getHistory(history)),
-    getMessage: (message) => dispatch(getMessage(message)),
-    getUsers: (users) => dispatch(getUsers(users)),
-    setIds: (id, name) => dispatch(setIds(id, name))
-});
 
 class App extends Component {
     constructor(props) {
@@ -52,7 +37,6 @@ class App extends Component {
     }
 
     handleMessageSubmit = (message) => {
-        this.props.getMessage(message);
         socket.emit('message', {message});
     }
 
@@ -89,4 +73,4 @@ class App extends Component {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default (App);

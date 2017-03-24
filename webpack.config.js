@@ -33,6 +33,11 @@ if (env === 'production') {
       new UglifyJSPlugin(),
       new OptimizeJsPlugin({
          sourceMap: false
+      }),
+      new webpack.DefinePlugin({
+         'process.env': {
+            'NODE_ENV': JSON.stringify('production')
+         }
       })
    );
    entry = './client/index.js';

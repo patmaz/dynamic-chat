@@ -1,31 +1,24 @@
 import React, {Component} from 'react';
-import {connect} from 'react-redux';
-import {handleCurrentMessageTxt} from './redux/actions.js';
-
-
-const mapStateToProps = state => ({
-    txt: state.mainState.currentMessageText,
-});
-
-const mapDispatchToProps = dispatch => ({
-    handleCurrentMessageTxt: (txt) => dispatch(handleCurrentMessageTxt(txt)),
-});
 
 import styles from './MessageForm.scss';
 
 class MessageForm extends Component {
     constructor(props) {
         super(props);
+
+        this.state = {
+            txt: ''
+        };
     }
 
     submitHandler = (e) => {
         e.preventDefault();
-        let message = {
+        const message = {
             from: this.props.name,
-            text: this.props.txt
+            text: this.state.txt
         }
         this.props.onMessageSubmit(message);
-        this.props.handleCurrentMessageTxt('');
+        this.setState({txt: ''});
     }
 
     render() {
@@ -33,8 +26,8 @@ class MessageForm extends Component {
             <form className={styles.MessageForm} onSubmit={e => this.submitHandler(e)}>
                 <input
                     className={styles.MessageInput}
-                    onChange={e => this.props.handleCurrentMessageTxt(e.target.value)}
-                    value={this.props.txt}
+                    onChange={e => this.setState({txt: e.target.value})}
+                    value={this.state.txt}
                     placeholder='Message'
                 />
             </form>
@@ -42,4 +35,4 @@ class MessageForm extends Component {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(MessageForm);
+export default MessageForm;

@@ -22,14 +22,6 @@ export const getUsers = (users) => {
     }
 }
 
-export const HANDLE_CURRENT_MESSAGE_TXT = 'HANDLE_CURRENT_MESSAGE_TXT';
-export const handleCurrentMessageTxt = (txt) => {
-    return {
-        type: HANDLE_CURRENT_MESSAGE_TXT,
-        txt
-    }
-}
-
 export const SET_IDS = 'SET_IDS';
 export const setIds = (id, name) => {
     return {

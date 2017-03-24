@@ -11,7 +11,7 @@ const saveMessage = (name, text) => {
             .set({
                 username: name,
                 text: text,
-                date: (new Date()).toString(),
+                date: new Date().toString(),
                 id: uuidV1()
             });
 }
