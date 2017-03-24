@@ -1,15 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { createStore, combineReducers, applyMiddleware } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 import createLogger from 'redux-logger';
 import { AppContainer } from 'react-hot-loader';
-import mainReducer from './chat/redux/reducers.js';
-import App from './chat/App.jsx';
-
-const reducer = combineReducers({
-    mainState: mainReducer
-});
+import reducer from './reducers/index';
+import App from './containers/AppContainer.jsx';
 
 const logger = createLogger();
 const store = createStore(reducer, applyMiddleware(logger));
@@ -28,8 +24,8 @@ const render = (Component) => {
 render(App);
 
 if (module.hot) {
-  module.hot.accept('./chat/App.jsx', () => {
-    const NewApp = require('./chat/App.jsx').default;
+  module.hot.accept('./containers/AppContainer.jsx', () => {
+    const NewApp = require('./containers/AppContainer.jsx').default;
     render(NewApp)
   });
 }

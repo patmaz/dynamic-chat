@@ -6,6 +6,7 @@ const Message = (props) => (
     <div className={props.myMessage ? styles.MyMessage : styles.Message}>
         <strong>{props.from} :: </strong>
         <span>{props.text}</span>
+        <span className={styles.Time}>{props.time}</span>
     </div>
 );
 
@@ -18,6 +19,7 @@ const MessageList = (props) => (
                     key={i}
                     from={message.from}
                     text={message.text}
+                    time={message.time}
                     myMessage={props.name === message.from}
                 />
             );

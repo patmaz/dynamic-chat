@@ -54,9 +54,10 @@ const chat = (server) => {
             const room = userService.getUserRoom(socket.id);
             console.log(socket.id, 'MESSAGE ', room);
             const {name} = userService.getUserById(socket.id);
-            socket.broadcast.to(room).emit('message', {
+            io.in(room).emit('message', {
                 text: message.text,
-                from: name
+                from: name,
+                time: new Date().toString()
             });
             if (room === 'room0') firebase.saveMessage(name, message.text);
         });
