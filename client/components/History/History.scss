@@ -5,6 +5,10 @@
     table-layout: auto;
     width: 100%;
 
+    @media only screen and (max-width: 480px) {
+        display: none;
+    }
+
     table {
         font-size: 10px;
     }

@@ -16,10 +16,10 @@ class MessageForm extends Component {
         const message = {
             from: this.props.name,
             text: this.state.txt
-        }
+        };
         this.props.onMessageSubmit(message);
         this.setState({txt: ''});
-    }
+    };
 
     render() {
         return (

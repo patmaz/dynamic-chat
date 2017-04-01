@@ -5,6 +5,9 @@
     justify-content: flex-start;
     flex-direction: column;
     border-right: 1px solid #676b6f;
+    @media only screen and (max-width: 480px) {
+        min-width: 95px;
+    }
 }
 
 .UsersOnline {
@@ -15,6 +18,7 @@
 .UsersList {
     margin: 0;
     padding: 0;
+    overflow: auto;
 }
 
 .UserItem {

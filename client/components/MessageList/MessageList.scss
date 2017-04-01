@@ -30,6 +30,11 @@
     animation-name: appearIn;
     animation-duration: 0.3s;
     animation-fill-mode: both;
+    @media only screen and (max-width: 480px) {
+        margin: 5px;
+        padding: 5px 5px 25px;
+        width: calc(100% - 20px);
+    }
     .Time {
         color: #DFC761;
     }
@@ -46,6 +51,10 @@
     animation-name: appearIn;
     animation-duration: 0.3s;
     animation-fill-mode: both;
+    @media only screen and (max-width: 480px) {
+        padding: 5px 5px 25px;
+        width: calc(100% - 20px);
+    }
     .Time {
         color:#5A95A4;
     }
