@@ -30,10 +30,15 @@ process.env.BABEL_ENV = 'development';
 
 if (env === 'production') {
    plugins.push(
-      new UglifyJSPlugin(),
-      new OptimizeJsPlugin({
-         sourceMap: false
-      })
+        new UglifyJSPlugin(),
+        new OptimizeJsPlugin({
+            sourceMap: false
+        }),
+        new webpack.DefinePlugin({
+           'process.env': {
+               'NODE_ENV': JSON.stringify('production')
+           }
+        })
    );
    entry = './client/index.js';
    devServer = {};
