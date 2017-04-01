@@ -9,7 +9,12 @@ import MessageList from '../MessageList/MessageList.jsx';
 import UsersList from '../UsersList/UsersList.jsx';
 import History from '../History/History.jsx';
 
-const socket = io.connect('http://localhost:3030');
+let socket;
+if (process.env.NODE_ENV === 'development') {
+    socket = io.connect('http://localhost:3030');
+} else {
+    socket = io.connect('');
+}
 
 class App extends Component {
     constructor(props) {
