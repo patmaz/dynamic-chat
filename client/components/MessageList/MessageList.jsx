@@ -11,9 +11,9 @@ const Message = (props) => (
 );
 
 const MessageList = (props) => (
-    <div className={styles.MessageList}>
+    <div id={'messagesList'} className={styles.MessageList}>
     {
-        props.messages.map((message, i) => {
+        props.messages.slice(0).reverse().map((message, i) => {
             return (
                 <Message
                     key={i}
