@@ -6,6 +6,12 @@ var OptimizeJsPlugin = require('optimize-js-plugin');
 var env = process.env.NODE_ENV || 'development';
 console.log('NODE_ENV:', env);
 
+var environment = new webpack.DefinePlugin({
+    'process.env': {
+        'NODE_ENV': env === 'development' ? JSON.stringify('development') : JSON.stringify('production')
+    }
+});
+
 var entry = [
       'react-hot-loader/patch',
       'webpack-dev-server/client?http://localhost:8080',
@@ -19,11 +25,12 @@ var devServer = {
    };
 
 var plugins = [
-   new HtmlWebpackPlugin({
-      template: 'client/chat.html',
-      filename: 'chat.html',
-      inject: 'body',
-   })
+    new HtmlWebpackPlugin({
+        template: 'client/chat.html',
+        filename: env === 'development' ? 'index.html' : 'chat.html',
+        inject: 'body',
+    }),
+    environment
 ];
 
 process.env.BABEL_ENV = 'development';
@@ -34,11 +41,7 @@ if (env === 'production') {
         new OptimizeJsPlugin({
             sourceMap: false
         }),
-        new webpack.DefinePlugin({
-           'process.env': {
-               'NODE_ENV': JSON.stringify('production')
-           }
-        })
+        environment
    );
    entry = './client/index.js';
    devServer = {};

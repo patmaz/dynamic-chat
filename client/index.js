@@ -7,25 +7,36 @@ import { AppContainer } from 'react-hot-loader';
 import reducer from './reducers/index';
 import App from './containers/AppContainer.jsx';
 
-const logger = createLogger();
-const store = createStore(reducer, applyMiddleware(logger));
+if (process.env.NODE_ENV === 'development') {
+    const logger = createLogger();
+    const store = createStore(reducer, applyMiddleware(logger));
 
-const render = (Component) => {
-  ReactDOM.render(
-    <Provider store={store}>
-        <AppContainer>
-            <Component/>
-        </AppContainer>
-    </Provider>,
-    document.getElementById('root')
-  );
-};
+    const render = (Component) => {
+        ReactDOM.render(
+            <Provider store={store}>
+                <AppContainer>
+                    <Component/>
+                </AppContainer>
+            </Provider>,
+            document.getElementById('root')
+        );
+    };
 
-render(App);
+    render(App);
 
-if (module.hot) {
-  module.hot.accept('./containers/AppContainer.jsx', () => {
-    const NewApp = require('./containers/AppContainer.jsx').default;
-    render(NewApp)
-  });
+    if (module.hot) {
+        module.hot.accept('./containers/AppContainer.jsx', () => {
+            const NewApp = require('./containers/AppContainer.jsx').default;
+            render(NewApp)
+        });
+    }
+} else {
+    const store = createStore(reducer);
+
+    ReactDOM.render(
+        <Provider store={store}>
+                <App/>
+        </Provider>,
+        document.getElementById('root')
+    );
 }
