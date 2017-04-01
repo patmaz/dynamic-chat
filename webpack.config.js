@@ -65,14 +65,16 @@ var config = {
          {
             test: /\.scss$/,
             use: [{
-                  loader: "style-loader"
+                loader: "style-loader"
             }, {
-                  loader: "css-loader",
-                  options: {
-                     modules: true
-                  }
+                loader: "css-loader",
+                options: {
+                    modules: true
+                }
             }, {
-                  loader: 'sass-loader'
+                loader: 'sass-loader'
+            }, {
+                loader: 'postcss-loader'
             }]
          }
       ]
