@@ -1,17 +1,27 @@
 "use strict";
 const socketIo = require('socket.io');
+var cookie = require('cookie');
+var cookieParser = require('cookie-parser');
 
 const UserService = require('../services/UsersService');
 const userService = new UserService();
 
+const config = require('../config');
+
 const firebase = require('./firebaseApi');
 firebase.init();
 
-const chat = (server) => {
+const chat = (server, redisClient) => {
     const io = socketIo(server);
 
     io.on('connection', (socket) => {
         socket.on('join', ({name, room}) => {
+            const sid = 'sess:' + cookieParser.signedCookie(cookie.parse(socket.handshake.headers.cookie)['connect.sid'], config.session.secret);
+            redisClient.get(sid, (err, reply) => {
+                if (err) throw err;
+                console.log(JSON.parse(reply));
+            });
+
             userService.addUser({
                 id: socket.id,
                 name,

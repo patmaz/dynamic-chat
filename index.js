@@ -2,6 +2,8 @@
 const express = require('express');
 const http = require('http');
 
+const redisClient = require("redis").createClient();
+
 const secureChat = require('./modules/secureChat');
 const chat = require('./modules/chat');
 
@@ -19,8 +21,8 @@ process.on('uncaughtException', (err) => {
 app.use(express.static('public'));
 
 //modules
-secureChat(app);
-chat(server);
+secureChat(app, redisClient);
+chat(server, redisClient);
 
 //404
 app.use((req, res, next) => {
