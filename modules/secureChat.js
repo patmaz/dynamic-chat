@@ -32,12 +32,13 @@ const secureChat = (app) => {
             if (req.user._json.app_metadata.role === 'important') {
                 next();
             } else {
-                res.redirect('/noaccess');
+                next();
+                //res.redirect('/noaccess');
             }
         } else {
             res.redirect('/chatlogin');
         }
-    }
+    };
 
     app.get('/', (req, res) => {
         if (!req.user) {
@@ -57,7 +58,8 @@ const secureChat = (app) => {
                 if (req.user._json.app_metadata.role === 'important') {
                     res.redirect('/chatchoice');
                 } else {
-                    res.redirect('/noaccess');
+                    res.redirect('/chatchoice');
+                    //res.redirect('/noaccess');
                 }
             }
         }
