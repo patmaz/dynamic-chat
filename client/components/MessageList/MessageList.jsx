@@ -26,6 +26,6 @@ const MessageList = (props) => (
         })
     }
   </div>
-)
+);
 
 export default MessageList;

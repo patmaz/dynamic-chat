@@ -4,7 +4,7 @@ export const getHistory = (history) => {
         type: GET_HISTORY,
         history
     }
-}
+};
 
 export const GET_MESSAGE = 'GET_MESSAGE';
 export const getMessage = (message) => {
@@ -12,7 +12,7 @@ export const getMessage = (message) => {
         type: GET_MESSAGE,
         message
     }
-}
+};
 
 export const GET_USERS = 'GET_USERS';
 export const getUsers = (users) => {
@@ -20,13 +20,12 @@ export const getUsers = (users) => {
         type: GET_USERS,
         users
     }
-}
+};
 
-export const SET_IDS = 'SET_IDS';
-export const setIds = (id, name) => {
+export const GET_USER_DATA = 'GET_USER_DATA';
+export const getUserData = (socketId, user) => {
     return {
-        type: SET_IDS,
-        id,
-        name
+        type: GET_USER_DATA,
+        user: [socketId, user]
     }
-}
+};

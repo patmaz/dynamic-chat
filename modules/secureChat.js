@@ -22,11 +22,7 @@ const secureChat = (app, redisClient) => {
         }
     );
     passport.use(strategy);
-    // app.use(cookieSession({
-    //     name: 'sessionChat',
-    //     keys: [config.session.secret],
-    //     maxAge: 24 * 60 * 60 * 1000
-    // }));
+
     const redisStore = new RedisStore({ host: 'localhost', port: 6379, client: redisClient });
     app.use(session({
         store: redisStore,
