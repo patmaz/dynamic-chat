@@ -43,7 +43,7 @@ const secureChat = (app, redisClient) => {
         } else {
             res.redirect('/chatlogin');
         }
-    }
+    };
 
     app.get('/', (req, res) => {
         if (!req.user) {
@@ -82,8 +82,6 @@ const secureChat = (app, redisClient) => {
     });
 
     app.get('/chat', authenticationMiddleware,  (req, res) => {
-        const idCookie = 'myid=' + req.user.nickname;
-        res.setHeader('Set-Cookie', idCookie);
         res.sendFile(path.join(__dirname, '../public/', 'chat.html'));
     });
 
@@ -96,6 +94,6 @@ const secureChat = (app, redisClient) => {
             }
         });
     });
-}
+};
 
 module.exports = secureChat;
