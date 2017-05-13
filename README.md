@@ -5,5 +5,5 @@
 - reactjs
 - redux
 - socket.io / websockets (dynamic rooms) 
-- passport + sessionCookie with auth0
+- passport + ~~sessionCookie~~ session data in redis db + auth0
 - firebase
