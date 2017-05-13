@@ -20,25 +20,16 @@ class App extends Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-            name: document.cookie.match(new RegExp('myid' + '=([^;]+)'))[0].substring(5) || 'none',
-        };
-
         this.room = window.location.href.split('?')[1] ? window.location.href.split('?')[1].split('=')[1] : 'room0';
     }
 
     componentDidMount() {
         socket.on('message', message => this.handleMessageGet(message));
         socket.on('update', ({users}) => this.props.getUsers(users));
-        socket.on('setId', (ids) => this.setId(ids));
+        socket.on('userData', ({socketId, user}) => this.props.getUserData(socketId, user));
         socket.on('history', ({history}) => this.props.getHistory(history));
-        socket.emit('join', { name: this.state.name, room: this.room });
+        socket.emit('join', { room: this.room });
     }
-
-    setId = (ids) => {
-        const name = document.cookie.match(new RegExp('myid' + '=([^;]+)'))[0].substring(5) || 'none';
-        this.props.setIds(ids.id, name);
-    };
 
     handleMessageSubmit = (message) => {
         socket.emit('message', {message});
@@ -67,17 +58,17 @@ class App extends Component {
                 <div className={styles.AppBody}>
                     <UsersList
                         users={this.props.users}
-                        myId={this.props.myIds.id}
+                        myId={this.props.user.socketId}
                     />
                     <div className={styles.MessageWrapper}>
                         <MessageList
                             messages={this.props.messages}
-                            name={this.props.myIds.name}
+                            name={this.props.user.userData.nickname || 'none'}
                         />
                         <History history={this.props.history} />
                         <MessageForm
                             onMessageSubmit={message => this.handleMessageSubmit(message)}
-                            name={this.props.myIds.name}
+                            name={this.props.user.userData.nickname || 'none'}
                         />
                     </div>
                 </div>

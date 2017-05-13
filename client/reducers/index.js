@@ -9,7 +9,7 @@ const reducer = combineReducers({
     history,
     messages,
     users,
-    myIds: user
+    user: user
 });
 
 export default reducer;

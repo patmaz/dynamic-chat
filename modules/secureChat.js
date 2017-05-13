@@ -1,12 +1,15 @@
 "use strict";
 const Auth0Strategy = require('passport-auth0');
 const passport = require('passport');
-const cookieSession = require('cookie-session');
+//const cookieSession = require('cookie-session');
 const path = require("path");
+
+var session = require('express-session');
+const RedisStore = require("connect-redis")(session);
 
 const config = require('../config');
 
-const secureChat = (app) => {
+const secureChat = (app, redisClient) => {
     passport.serializeUser((user, done) => {
         done(null, user);
     });
@@ -19,10 +22,13 @@ const secureChat = (app) => {
         }
     );
     passport.use(strategy);
-    app.use(cookieSession({
-        name: 'sessionChat',
-        keys: [config.session.secret],
-        maxAge: 24 * 60 * 60 * 1000
+
+    const redisStore = new RedisStore({ host: 'localhost', port: 6379, client: redisClient });
+    app.use(session({
+        store: redisStore,
+        secret: config.session.secret,
+        resave: false,
+        saveUninitialized: false
     }));
     app.use(passport.initialize());
     app.use(passport.session());
@@ -78,15 +84,18 @@ const secureChat = (app) => {
     });
 
     app.get('/chat', authenticationMiddleware,  (req, res) => {
-        const idCookie = 'myid=' + req.user.nickname;
-        res.setHeader('Set-Cookie', idCookie);
         res.sendFile(path.join(__dirname, '../public/', 'chat.html'));
     });
 
     app.get('/logout', (req, res) => {
-        req.logout();
-        res.redirect('/');
+        req.session.destroy(function(err){
+            if(err){
+                console.log(err);
+            } else {
+                res.redirect('/');
+            }
+        });
     });
-}
+};
 
 module.exports = secureChat;
