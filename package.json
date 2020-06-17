@@ -25,6 +25,7 @@
     "passport": "^0.3.2",
     "passport-auth0": "^0.6.0",
     "react": "^15.4.2",
+    "react-cookie-consent": "^5.1.0",
     "react-dom": "^15.4.2",
     "react-redux": "^5.0.3",
     "redis": "^2.7.1",
